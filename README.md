@@ -10,8 +10,44 @@ Use this widget to display most important metrics for one selected cryptocurrenc
 
 ### Shortcodes
 
-Use this shortcode
-`[coinpaprika coin=eth-ethereum in=usd]` in post/page text to get the fresh price of Ethereum in US Dollars.
+You can easily put fresh coin metrics in your article with your shortcodes syntax.
+
+#### Coin price in USD:
+
+![Coin price in USD](images/short-1.png)
+
+`[coinpaprika coin="btc-bitcoin"]`
+
+#### Coin price in BTC:
+![Coin price in BTC](images/short-2.png)
+
+`[coinpaprika coin="eth-ethereum" quote="btc"]`
+
+#### Coin price in ETH:
+![Coin price in ETH](images/short-3.png)
+
+`[coinpaprika coin="doge-dogecoin" quote="eth"]`
+
+#### ATH (all time high):
+![ATH](images/short-4.png)
+
+`[coinpaprika coin="eth-ethereum" metric="ath"]`
+
+#### Volume 24h:
+![Volume 24h](images/short-5.png)
+
+`[coinpaprika coin="doge-dogecoin" metric="volume24h"]`
+
+#### Market Capitalisation:
+![Market CapitalisationD](images/short-6.png)
+
+`[coinpaprika coin="btc-bitcoin" metric="marketcap"]`
+
+#### Advanced options:
+![Coin price in USD](images/short-7.png)
+
+`[coinpaprika coin="doge-dogecoin" quote="eth" metric="volume24h" icon="false" change="false"]`
+
 
 All options: `[coinpaprika coin="COIN-ID" quote="usd|btc|eth" icon="true|false" metric="price|volume24h|marketcap|ath" change="true|false"]`
 
@@ -23,8 +59,6 @@ What could be used as `COIN-ID`?
 * `xlm-stellar` for Stellar
 
 etc... for other coins listed on Coinpaprika.
-
-![Shortcodes in action](assets/screenshot-3.png)
 
 ## How to install this plugin on your Wordpress site?
 
