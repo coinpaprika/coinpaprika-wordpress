@@ -6,7 +6,7 @@
 
 Use this widget to display most important metrics for one selected cryptocurrency. Available in widgets section in Wordpress settings.
 
-![Ticker widget](coinpaprika/assets/screenshot-1.png)
+![Ticker widget](assets/screenshot-1.png)
 
 ### Shortcodes
 
@@ -24,7 +24,7 @@ What could be used as `COIN-ID`?
 
 etc... for other coins listed on Coinpaprika.
 
-![Shortcodes in action](coinpaprika/assets/screenshot-3.png)
+![Shortcodes in action](assets/screenshot-3.png)
 
 ## How to install this plugin on your Wordpress site?
 
