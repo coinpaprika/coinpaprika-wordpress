@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_NAME: coinpaprika_wordpress
+      WORDPRESS_DB_PASSWORD: p@sSwo1d
+      WORDPRESS_DEBUG: "true"
+    working_dir: /var/www/html
+    volumes:
+      - "./coinpaprika:/var/www/html/wp-content/plugins/coinpaprika"
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: coinpaprika_wordpress
+      MYSQL_ROOT_PASSWORD: p@sSwo1d
