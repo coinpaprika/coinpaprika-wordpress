@@ -129,7 +129,7 @@ class Coinpaprika_Ticker extends WP_Widget {
 			}
 
 			private function coin_link($id) {
-				return 'https://coinpaprika.com/coin/' . $id;
+				return 'https://coinpaprika.com/coin/' . $id . '/?utm_source=widget&utm_medium=wordpress&utm_campaign=trends';
 			}
 
 		/**

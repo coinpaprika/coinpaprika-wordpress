@@ -29,7 +29,7 @@ class Coinpaprika_Shortcodes {
 			return '';
 		}
 
-		$html = '<a href="https://coinpaprika.com/coin/' . $widget_data->id . '" class="coinpaprika_shortcode">';
+		$html = '<a href="https://coinpaprika.com/coin/' . $widget_data->id . '/?utm_source=widget&utm_medium=wordpress&utm_campaign=shortcode" class="coinpaprika_shortcode">';
 
 		if ( $attributes['icon'] ) {
 			$html .= '<img src="https://coinpaprika.com/coin/' . $widget_data->id . '/logo-thumb.png"/> ';
