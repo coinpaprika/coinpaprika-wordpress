@@ -253,7 +253,7 @@ class Coinpaprika_Ticker extends WP_Widget {
 				return;
 			}
 
-			wp_register_style('coinpaprika-ticker', plugins_url('css/widget.min.css', dirname(__FILE__) ));
+			wp_register_style('coinpaprika-ticker', plugins_url('css/widget.min.css', dirname(__FILE__) ), null, COINPAPRIKA_PLUGIN_VERSION);
 			wp_enqueue_style('coinpaprika-ticker');
 		}
 }

@@ -102,7 +102,7 @@ class Coinpaprika_Shortcodes {
       return;
     }
 
-    wp_register_style('coinpaprika-shortcodes', plugins_url('css/shortcodes.css', dirname(__FILE__) ));
+    wp_register_style('coinpaprika-shortcodes', plugins_url('css/shortcodes.css', dirname(__FILE__) ), null, COINPAPRIKA_PLUGIN_VERSION);
     wp_enqueue_style('coinpaprika-shortcodes');
   }
 }

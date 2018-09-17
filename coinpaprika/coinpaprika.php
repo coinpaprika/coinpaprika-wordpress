@@ -16,6 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define('COINPAPRIKA_PLUGIN_VERSION', '1.1');
+
 require_once 'src' . DIRECTORY_SEPARATOR . 'api.php';
 require_once 'src' . DIRECTORY_SEPARATOR . 'ticker.php';
 require_once 'src' . DIRECTORY_SEPARATOR . 'shortcodes.php';

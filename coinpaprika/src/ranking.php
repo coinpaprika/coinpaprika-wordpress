@@ -68,7 +68,7 @@ class Coinpaprika_Ranking extends WP_Widget {
 
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'coin_ids' ) ); ?>">
-					<?php esc_html_e( 'Cryptocurrency:', 'coinpaprika' ); ?>
+					<?php esc_html_e( 'Cryptocurrencies:', 'coinpaprika' ); ?>
 				</label>
 				<select id="<?php echo esc_attr( $this->get_field_id( 'coin_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'coin_ids[]' ) ); ?>" class="widefat" multiple="true" size="10">
 					<?php foreach ( $coins as $coin ) : ?>
