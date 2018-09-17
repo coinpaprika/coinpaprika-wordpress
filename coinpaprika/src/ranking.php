@@ -155,6 +155,6 @@ class Coinpaprika_Ranking extends WP_Widget {
 				return;
 			}
 
-			wp_enqueue_script('coinpaprika-ranking', 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.3/dist/widget.min.js', null, null, true);
+			wp_enqueue_script('coinpaprika-ranking', 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4/dist/widget.min.js', null, null, true);
 		}
 }
