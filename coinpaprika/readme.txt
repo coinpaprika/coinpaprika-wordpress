@@ -38,10 +38,14 @@ You have a lot of options to use:
 == Screenshots ==
 1. Ticker widget
 2. Widget configuration
-3. Shortcodes in action
-4. Shortcodes syntax
+3. Market widget
+4. Widget configuration
+5. Shortcodes in action
+6. Shortcodes syntax
 
 == Changelog ==
+= 1.1 =
+* Market widget - cryptocurrencies of your choice, listed within one ranking
 = 1.0 =
 * Ticker widget - most important metrics for selected cryptocurrency
 * Shortcodes - add cryptocurrency metric directly in your text

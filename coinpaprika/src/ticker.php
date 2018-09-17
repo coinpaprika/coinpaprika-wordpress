@@ -140,7 +140,7 @@ class Coinpaprika_Ticker extends WP_Widget {
 		 * @param array $instance Previously saved values from database.
 		 */
 		public function form( $instance ) {
-			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', 'coinpaprika' );
+			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
 			$coin_id = ! empty( $instance['coin_id'] ) ? $instance['coin_id'] : null;
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
