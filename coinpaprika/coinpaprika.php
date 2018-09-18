@@ -3,7 +3,7 @@
 Plugin Name: Coinpaprika
 Plugin URI: https://github.com/coinpaprika/coinpaprika-wordpress
 Description: Crypto capitalization WordPress plugin featuring: easy to configure crypto price widgets & shortcodes with all available cryptocurrencies!
-Version: 1.1.1
+Version: 1.1.2
 Author: Coinpaprika
 Author URI: https://coinpaprika.com/
 License: GPLv2 or later
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define('COINPAPRIKA_PLUGIN_VERSION', '1.1.1');
+define('COINPAPRIKA_PLUGIN_VERSION', '1.1.2');
 
 require_once 'src' . DIRECTORY_SEPARATOR . 'api.php';
 require_once 'src' . DIRECTORY_SEPARATOR . 'ticker.php';

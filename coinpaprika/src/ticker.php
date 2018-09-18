@@ -8,7 +8,7 @@ class Coinpaprika_Ticker extends WP_Widget {
 			 * Register widget with WordPress.
 			 */
 			public function __construct() {
-				parent::__construct( 'coinpaprika-ticker', esc_html__( 'Coinpaprika ticker', 'coinpaprika' ), array( 'description' => esc_html__( 'Use this widget to display most important metrics for one selected cryptocurrency', 'coinpaprika' ) ) );
+				parent::__construct( 'coinpaprika-ticker', esc_html__( 'Coin Ticker (by Coinpaprika)', 'coinpaprika' ), array( 'description' => esc_html__( 'Use this widget to display most important metrics for one selected cryptocurrency', 'coinpaprika' ) ) );
 				add_action('wp_enqueue_scripts', array(&$this, 'enqueue_styles'));
 			}
 

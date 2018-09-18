@@ -8,7 +8,7 @@ class Coinpaprika_Ranking extends WP_Widget {
 			 * Register widget with WordPress.
 			 */
 			public function __construct() {
-				parent::__construct( 'coinpaprika-ranking', esc_html__( 'Coinpaprika ranking', 'coinpaprika' ), array( 'description' => esc_html__( 'Use this widget to display ranking for selected cryptocurrencies', 'coinpaprika' ) ) );
+				parent::__construct( 'coinpaprika-ranking', esc_html__( 'Coins Ranking (by Coinpaprika)', 'coinpaprika' ), array( 'description' => esc_html__( 'Use this widget to display ranking for selected cryptocurrencies', 'coinpaprika' ) ) );
 				add_action('wp_enqueue_scripts', array(&$this, 'enqueue_styles'));
 			}
 
@@ -49,7 +49,6 @@ class Coinpaprika_Ranking extends WP_Widget {
 		 */
 		public function form( $instance ) {
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';;
-			$coin_ids = ! empty( $instance['coin_ids'] ) ? $instance['coin_ids'] : array();
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
 			$version = ! empty( $instance['version'] ) ? $instance['version'] : 'standard';
@@ -60,6 +59,8 @@ class Coinpaprika_Ranking extends WP_Widget {
 			$display_currencies = $api->display_currencies();
 			$versions = array('standard', 'extended');
 			$updates = array(false => __('No interval', 'coinpaprika'), '30s' => __('30 seconds', 'coinpaprika'), '1m' => __('1 minute', 'coinpaprika'), '5m' => __('5 minutes', 'coinpaprika'), '10m' => __('10 minutes', 'coinpaprika'), '30m' => __('30 minutes', 'coinpaprika'));
+
+			$coin_ids = ! empty( $instance['coin_ids'] ) ? $instance['coin_ids'] : array_column(array_slice($coins, 0, 10), 'id');
 			?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'coinpaprika' ); ?></label>
@@ -70,13 +71,14 @@ class Coinpaprika_Ranking extends WP_Widget {
 				<label for="<?php echo esc_attr( $this->get_field_id( 'coin_ids' ) ); ?>">
 					<?php esc_html_e( 'Cryptocurrencies:', 'coinpaprika' ); ?>
 				</label>
-				<select id="<?php echo esc_attr( $this->get_field_id( 'coin_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'coin_ids[]' ) ); ?>" class="widefat" multiple="true" size="10">
+				<select id="<?php echo esc_attr( $this->get_field_id( 'coin_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'coin_ids[]' ) ); ?>" class="widefat" multiple="true" size="15">
 					<?php foreach ( $coins as $coin ) : ?>
 						<option value="<?php echo esc_attr( $coin->id ); ?>" <?php selected( true, in_array($coin->id, $coin_ids) ); ?>>
 							<?php echo esc_html( $coin->name ); ?>
 						</option>
 					<?php endforeach; ?>
 				</select>
+				<small><?php esc_html_e( 'ctrl/&#8984; + click for multiple select', 'coinpaprika' ); ?> <?php esc_html_e( '(max. 50 coins)', 'coinpaprika' ); ?></small>
 			</p>
 
 			<p>
@@ -155,6 +157,6 @@ class Coinpaprika_Ranking extends WP_Widget {
 				return;
 			}
 
-			wp_enqueue_script('coinpaprika-ranking', 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4/dist/widget.min.js', null, null, true);
+			wp_enqueue_script('coinpaprika-ranking', 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market/dist/widget.min.js', null, null, true);
 		}
 }
