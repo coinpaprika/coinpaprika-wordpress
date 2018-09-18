@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Coinpaprika package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Coinpaprika 1.0\n"
+"Project-Id-Version: Coinpaprika 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/coinpaprika\n"
 "POT-Creation-Date: 2018-09-18 07:15:31+00:00\n"
-"PO-Revision-Date: 2018-09-18 09:16+0200\n"
+"PO-Revision-Date: 2018-09-18 09:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
