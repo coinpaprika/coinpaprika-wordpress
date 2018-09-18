@@ -141,7 +141,6 @@ class Coinpaprika_Ticker extends WP_Widget {
 		 */
 		public function form( $instance ) {
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
-			$coin_id = ! empty( $instance['coin_id'] ) ? $instance['coin_id'] : null;
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
 			$version = ! empty( $instance['version'] ) ? $instance['version'] : 'standard';
@@ -150,6 +149,8 @@ class Coinpaprika_Ticker extends WP_Widget {
 			$coins = $api->all_coins();
 			$display_currencies = $api->display_currencies();
 			$versions = array('standard', 'extended');
+
+			$coin_id = ! empty( $instance['coin_id'] ) ? $instance['coin_id'] : $coins[0]->id;
 			?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'coinpaprika' ); ?></label>

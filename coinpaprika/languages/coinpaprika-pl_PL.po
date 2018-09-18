@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Coinpaprika 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/coinpaprika\n"
 "POT-Creation-Date: 2018-09-18 07:15:31+00:00\n"
-"PO-Revision-Date: 2018-09-18 09:38+0200\n"
+"PO-Revision-Date: 2018-09-18 09:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -26,7 +26,7 @@ msgstr "Widget wyświetla ranking wybranych kryptowalut"
 
 #: src/ranking.php:30 src/ticker.php:30
 msgid "Configure widget settings"
-msgstr "Skonfiguruj widgetu"
+msgstr "Skonfiguruj widget"
 
 #: src/ranking.php:61
 msgid "No interval"
