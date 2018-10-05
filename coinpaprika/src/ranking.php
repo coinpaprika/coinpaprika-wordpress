@@ -51,13 +51,11 @@ class Coinpaprika_Ranking extends WP_Widget {
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';;
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
-			$version = ! empty( $instance['version'] ) ? $instance['version'] : 'standard';
 			$update_interval = ! empty( $instance['update_interval'] ) ? $instance['update_interval'] : false;
 
 			$api = new Coinpaprika_API();
 			$coins = $api->all_coins();
 			$display_currencies = $api->display_currencies();
-			$versions = array('standard', 'extended');
 			$updates = array(false => __('No interval', 'coinpaprika'), '30s' => __('30 seconds', 'coinpaprika'), '1m' => __('1 minute', 'coinpaprika'), '5m' => __('5 minutes', 'coinpaprika'), '10m' => __('10 minutes', 'coinpaprika'), '30m' => __('30 minutes', 'coinpaprika'));
 
 			$coin_ids = ! empty( $instance['coin_ids'] ) ? $instance['coin_ids'] : array_column(array_slice($coins, 0, 10), 'id');

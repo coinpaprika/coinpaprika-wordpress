@@ -36,8 +36,7 @@ class Coinpaprika_Ticker extends WP_Widget {
 					$night_mode = !empty( $instance['style'] ) && $instance['style'] == 'night';
 					$update_interval = ! empty( $instance['update_interval'] ) ? $instance['update_interval'] : false;
 					$display_currency = !empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
-
-					$modules = !empty( $instance['widget_module'] ) ? $instance['widget_module'] : array(self::$MODULE_PRICE);
+					$modules = $this->migrate_module($instance);
 
 					$min_height = 0;
 					if ( in_array(self::$MODULE_PRICE, $modules) ) {
@@ -69,13 +68,12 @@ class Coinpaprika_Ticker extends WP_Widget {
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
-			$modules = !empty( $instance['widget_module'] ) ? $instance['widget_module'] : array(self::$MODULE_PRICE);
+			$modules = $this->migrate_module($instance);
 			$update_interval = ! empty( $instance['update_interval'] ) ? $instance['update_interval'] : false;
 
 			$api = new Coinpaprika_API();
 			$coins = $api->all_coins();
 			$display_currencies = $api->display_currencies();
-			$versions = array('standard', 'extended');
 			$updates = array(false => __('No interval', 'coinpaprika'), '30s' => __('30 seconds', 'coinpaprika'), '1m' => __('1 minute', 'coinpaprika'), '5m' => __('5 minutes', 'coinpaprika'), '10m' => __('10 minutes', 'coinpaprika'), '30m' => __('30 minutes', 'coinpaprika'));
 
 			$coin_id = ! empty( $instance['coin_id'] ) ? $instance['coin_id'] : $coins[0]->id;
@@ -210,5 +208,17 @@ class Coinpaprika_Ticker extends WP_Widget {
 			}
 
 			wp_enqueue_script('coinpaprika-ticker', 'https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js', null, null, true);
+		}
+
+		private function migrate_module($instance) {
+			if ( empty( $instance['widget_module'] ) ) {
+				if ( !empty( $instance['version'] ) && $instance['version'] == 'extended') {
+					return array(self::$MODULE_PRICE, self::$MODULE_MARKET);
+				} else {
+					return array(self::$MODULE_PRICE);
+				}
+			} else {
+				return $instance['widget_module'];
+			}
 		}
 }

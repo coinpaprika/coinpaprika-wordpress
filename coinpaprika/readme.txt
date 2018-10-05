@@ -44,6 +44,8 @@ You have a lot of options to use:
 6. Shortcodes syntax
 
 == Changelog ==
+= 1.2 =
+* Add price chart to Ticker widget
 = 1.1 =
 * Market widget - cryptocurrencies of your choice, listed within one ranking
 = 1.0 =
