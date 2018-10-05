@@ -12,6 +12,10 @@ class Coinpaprika_Ticker extends WP_Widget {
 				add_action('wp_enqueue_scripts', array(&$this, 'enqueue_styles'));
 			}
 
+			static $MODULE_PRICE = 'price';
+			static $MODULE_MARKET = 'market_details';
+			static $MODULE_CHART = 'chart';
+
 			/**
 			 * Front-end display of widget.
 			 *
@@ -26,110 +30,32 @@ class Coinpaprika_Ticker extends WP_Widget {
 					echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 				}
 
-				if ( empty( $instance['coin_id']) ) {
+				if ( empty( $instance['coin_id'] ) ) {
 					echo esc_html__( 'Configure widget settings', 'coinpaprika' );
 				} else {
-					$api = new Coinpaprika_API();
-					$display_currency = !empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
-					$extended = !empty( $instance['version'] ) && $instance['version'] == 'extended';
 					$night_mode = !empty( $instance['style'] ) && $instance['style'] == 'night';
-					$widget_data = $api->widget_data($instance['coin_id'], $display_currency);
-					echo '<div class="coinpaprika-currency-widget' . ($night_mode ? ' cp-widget__night-mode' : '') . ' cp-lang-' . get_locale() .'">' .
-						'<div class="cp-widget__header">' .
-								'<div class="cp-widget__img cp-widget__img-' . $instance['coin_id'] . '">' .
-									'<img src="https://coinpaprika.com/coin/' . $instance['coin_id'] . '/logo.png" />' .
-								'</div>' .
-							'<div class="cp-widget__main">' .
-								( !empty( $widget_data ) ? $this->widget_content( $widget_data ) : $this->widget_no_data() ) .
-							'</div>' .
-						'</div>' .
-						($extended ? $this->widget_content_extended( $widget_data ) : '') .
-				 '</div>';
+					$update_interval = ! empty( $instance['update_interval'] ) ? $instance['update_interval'] : false;
+					$display_currency = !empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
+
+					$modules = !empty( $instance['widget_module'] ) ? $instance['widget_module'] : array(self::$MODULE_PRICE);
+
+					$min_height = 0;
+					if ( in_array(self::$MODULE_PRICE, $modules) ) {
+						$min_height += 116;
+					}
+
+					if ( in_array(self::$MODULE_MARKET, $modules) ) {
+						$min_height += 100;
+					}
+
+					if ( in_array(self::$MODULE_CHART, $modules) ) {
+						$min_height += 315;
+					}
+
+					echo '<div class="coinpaprika-currency-widget wordpress' . ($night_mode ? ' cp-widget__night-mode' : '') . '" data-currency="' . $instance['coin_id'] . '" data-modules=\'["' . implode('", "', $modules) . '"]\' data-language="' . substr(get_locale(), 0, 2) .'" ' . ($update_interval ? 'data-update-active="true" data-update-timeout="' . $update_interval . '"' : 'data-update-active="false"') . ' data-primary-currency="' . $display_currency . '" style="min-height: ' . $min_height . 'px"></div>';
 			 }
+
 				echo $args['after_widget'];
-			}
-
-			private function widget_no_data() {
-				return '<div class="cp-widget__main-no-data cp-translation translation_message">' . esc_html__( 'Data is currently unavailable', 'coinpaprika' ) . '</div>';
-			}
-
-			private function widget_content($widget_data) {
-					return '<h3><a href="' . $this->coin_link($widget_data->id) . '">' .
-					'<span class="nameTicker">' . $widget_data->name . '</span>' .
-					'<span class="symbolTicker">' . $widget_data->symbol . '</span>' .
-					'</a></h3>' .
-					'<strong>' .
-					'<span class="priceTicker parseNumber">' . $this->parse_number($widget_data->price) .  '</span> ' .
-					'<span class="primaryCurrency">' . $widget_data->quote_symbol . ' </span>' .
-					'<span class="price_change_24hTicker cp-widget__rank cp-widget__rank-' . (($widget_data->price_change_24h > 0) ? "up" : (($widget_data->price_change_24h < 0) ? "down" : "neutral")) . '">(' . round($widget_data->price_change_24h, 2) . '%)</span>' .
-					'</strong>' .
-					'<span class="cp-widget__rank-label"><span class="cp-translation translation_rank">' . esc_html__( 'Rank', 'coinpaprika' ) . '</span> <span class="rankTicker">' . $widget_data->rank .'</span></span>';
-			}
-
-			private function widget_content_extended($widget_data) {
-				return '<div class="cp-widget__details">' . $this->widget_content_ath($widget_data) . $this->widget_content_volume($widget_data) . $this->widget_market_cap($widget_data) . '</div>';
-			}
-
-			private function widget_content_ath($widget_data) {
-				return $this->widget_value_change(esc_html__( 'ATH', 'coinpaprika' ), $widget_data->price_ath, $widget_data->percent_from_price_ath);
-			}
-
-			private function widget_content_volume($widget_data) {
-					return $this->widget_value_change(esc_html__( 'Volume 24h', 'coinpaprika' ), $widget_data->volume_24h, $widget_data->volume_24h_change_24h);
-			}
-
-			private function widget_market_cap($widget_data) {
-					return $this->widget_value_change(esc_html__( 'Market cap', 'coinpaprika' ), $widget_data->market_cap, $widget_data->market_cap_change_24h);
-			}
-
-			private function widget_value_change($label, $value, $percent_change) {
-				return '<div>' .
-					'<small>' . $label . '</small>' .
-					'<div>' .
-					'<span>' . $this->parse_number($value) . '</span>' .
-					'<span class="symbolTicker showDetailsCurrency"></span>' .
-					'</div>' .
-					'<span class="cp-widget__rank cp-widget__rank-' . (($percent_change > 0) ? "up" : (($percent_change < 0) ? "down" : "neutral")) . '">' . round($percent_change, 2) . '%</span>' .
-					'</div>';
-			}
-
-			private function parse_number($number) {
-				if ($number > 100000){
-					$formatted = (string)round($number, 0);
-					$parameter = 'K';
-					$shorted = substr($formatted, 0, -1);
-
-					if ($number > 1000000000){
-						$shorted = substr($formatted, 0, -7);
-						$parameter = 'B';
-					} else if ($number > 1000000){
-						$shorted = substr($formatted, 0, -4);
-						$parameter = 'M';
-					}
-
-					$natural = substr($shorted, 0, -2);
-					$decimal = substr($shorted, - 2);
-					return number_format($natural . '.' . $decimal, 2, '.', ' ') . ' ' . $parameter;
-				} else {
-					$isDecimal = ($number % 1) > 0;
-					if ($isDecimal){
-						$precision = 2;
-						if ($number < 1){
-							$precision = 8;
-						} else if ($number < 10){
-							$precision = 6;
-						} else if ($number < 1000){
-							$precision = 4;
-						}
-						return number_format($number, $precision, '.', ' ');
-					} else {
-						return number_format($number, 2, '.', ' ');
-					}
-				}
-			}
-
-			private function coin_link($id) {
-				return 'https://coinpaprika.com/coin/' . $id . '/?utm_source=widget&utm_medium=wordpress&utm_campaign=trends';
 			}
 
 		/**
@@ -143,12 +69,14 @@ class Coinpaprika_Ticker extends WP_Widget {
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
 			$display_currency = ! empty( $instance['display_currency'] ) ? $instance['display_currency'] : null;
 			$style = ! empty( $instance['style'] ) ? $instance['style'] : 'day';
-			$version = ! empty( $instance['version'] ) ? $instance['version'] : 'standard';
+			$modules = !empty( $instance['widget_module'] ) ? $instance['widget_module'] : array(self::$MODULE_PRICE);
+			$update_interval = ! empty( $instance['update_interval'] ) ? $instance['update_interval'] : false;
 
 			$api = new Coinpaprika_API();
 			$coins = $api->all_coins();
 			$display_currencies = $api->display_currencies();
 			$versions = array('standard', 'extended');
+			$updates = array(false => __('No interval', 'coinpaprika'), '30s' => __('30 seconds', 'coinpaprika'), '1m' => __('1 minute', 'coinpaprika'), '5m' => __('5 minutes', 'coinpaprika'), '10m' => __('10 minutes', 'coinpaprika'), '30m' => __('30 minutes', 'coinpaprika'));
 
 			$coin_id = ! empty( $instance['coin_id'] ) ? $instance['coin_id'] : $coins[0]->id;
 			?>
@@ -184,6 +112,40 @@ class Coinpaprika_Ticker extends WP_Widget {
 			</p>
 
 			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'widget_module' ) ); ?>">
+					<?php esc_html_e( 'Widget modules:', 'coinpaprika' ); ?>
+				</label><br/>
+				<input
+						type="checkbox"
+						<?php checked( true, in_array(self::$MODULE_PRICE, $modules) ); ?>
+						id="<?php echo $this->get_field_id( 'widget_module' ); ?>"
+						name="<?php echo $this->get_field_name('widget_module[]'); ?>"
+						value="<?php echo self::$MODULE_PRICE; ?>"
+						disabled
+				/>
+				<label for="<?php echo $this->get_field_id( 'widget_module' ); ?>"><?php echo esc_html__( 'Price', 'coinpaprika' ); ?></label>
+
+				<input
+						type="checkbox"
+						<?php checked( true, in_array(self::$MODULE_MARKET, $modules) ); ?>
+						id="<?php echo $this->get_field_id( 'widget_module' ); ?>"
+						name="<?php echo $this->get_field_name('widget_module[]'); ?>"
+						value="<?php echo self::$MODULE_MARKET; ?>"
+				/>
+				<label for="<?php echo $this->get_field_id( 'widget_module' ); ?>"><?php echo esc_html__( 'Markets Metrics', 'coinpaprika' ); ?></label>
+
+				<input
+						type="checkbox"
+						<?php checked( true, in_array(self::$MODULE_CHART, $modules) ); ?>
+						id="<?php echo $this->get_field_id( 'widget_module' ); ?>"
+						name="<?php echo $this->get_field_name('widget_module[]'); ?>"
+						value="<?php echo self::$MODULE_CHART; ?>"
+				/>
+				<label for="<?php echo $this->get_field_id( 'widget_module' ); ?>"><?php echo esc_html__( 'Price Chart', 'coinpaprika' ); ?></label>
+
+			</p>
+
+			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>">
 					<?php esc_html_e( 'Widget style:', 'coinpaprika' ); ?>
 				</label><br/>
@@ -206,26 +168,18 @@ class Coinpaprika_Ticker extends WP_Widget {
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'version' ) ); ?>">
-					<?php esc_html_e( 'Widget version:', 'coinpaprika' ); ?>
-				</label><br/>
-				<input
-						type="radio"
-						<?php checked( 'standard', $version ); ?>
-						id="<?php echo $this->get_field_id( 'version' ); ?>"
-						name="<?php echo $this->get_field_name('version'); ?>"
-						value="standard"
-				/>
-				<label for="<?php echo $this->get_field_id( 'version' ); ?>"><?php echo esc_html__( 'standard', 'coinpaprika' ); ?></label>
-				<input
-						type="radio"
-						<?php checked( 'extended', $version ); ?>
-						id="<?php echo $this->get_field_id( 'version' ); ?>"
-						name="<?php echo $this->get_field_name('version'); ?>"
-						value="extended"
-				/>
-				<label for="<?php echo $this->get_field_id( 'version' ); ?>"><?php echo esc_html__( 'extended', 'coinpaprika' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'update_interval' ) ); ?>">
+					<?php esc_html_e( 'Update interval:', 'coinpaprika' ); ?>
+				</label>
+				<select id="<?php echo esc_attr( $this->get_field_id( 'update_interval' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'update_interval' ) ); ?>" class="widefat">
+					<?php foreach ( $updates as $key => $name ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $update_interval, $key ); ?>>
+							<?php echo esc_html( $name ); ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
 			</p>
+
 			<?php
 		}
 
@@ -245,7 +199,8 @@ class Coinpaprika_Ticker extends WP_Widget {
 			$instance['coin_id'] = ( ! empty( $new_instance['coin_id'] ) ) ? sanitize_text_field( $new_instance['coin_id'] ) : '';
 			$instance['display_currency'] = ( ! empty( $new_instance['display_currency'] ) ) ? sanitize_text_field( $new_instance['display_currency'] ) : '';
 			$instance['style'] = ( ! empty( $new_instance['style'] ) ) ? sanitize_text_field( $new_instance['style'] ) : '';
-			$instance['version'] = ( ! empty( $new_instance['version'] ) ) ? sanitize_text_field( $new_instance['version'] ) : '';
+			$instance['widget_module'] = ( ! empty( $new_instance['widget_module'] ) ) ? array_merge(array(self::$MODULE_PRICE), $new_instance['widget_module']) : array(self::$MODULE_PRICE);
+			$instance['update_interval'] = ( ! empty( $new_instance['update_interval'] ) ) ? sanitize_text_field( $new_instance['update_interval'] ) : '';
 			return $instance;
 		}
 
@@ -254,7 +209,6 @@ class Coinpaprika_Ticker extends WP_Widget {
 				return;
 			}
 
-			wp_register_style('coinpaprika-ticker', plugins_url('css/widget.min.css', dirname(__FILE__) ), null, COINPAPRIKA_PLUGIN_VERSION);
-			wp_enqueue_style('coinpaprika-ticker');
+			wp_enqueue_script('coinpaprika-ticker', 'https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js', null, null, true);
 		}
 }

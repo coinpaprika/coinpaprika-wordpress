@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Coinpaprika package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Coinpaprika 1.1.1\n"
+"Project-Id-Version: Coinpaprika 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/coinpaprika\n"
-"POT-Creation-Date: 2018-09-18 07:15:31+00:00\n"
+"POT-Creation-Date: 2018-10-05 11:07:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Use this widget to display ranking for selected cryptocurrencies"
 msgstr ""
 
-#: src/ranking.php:30 src/ticker.php:30
+#: src/ranking.php:30 src/ticker.php:34
 msgid "Configure widget settings"
 msgstr ""
 
@@ -48,7 +48,7 @@ msgstr ""
 msgid "30 minutes"
 msgstr ""
 
-#: src/ranking.php:66 src/ticker.php:155
+#: src/ranking.php:66 src/ticker.php:82
 msgid "Title:"
 msgstr ""
 
@@ -64,19 +64,19 @@ msgstr ""
 msgid "(max. 50 coins)"
 msgstr ""
 
-#: src/ranking.php:86 src/ticker.php:174
+#: src/ranking.php:86 src/ticker.php:101
 msgid "Display in:"
 msgstr ""
 
-#: src/ranking.php:99 src/ticker.php:187
+#: src/ranking.php:99 src/ticker.php:148
 msgid "Widget style:"
 msgstr ""
 
-#: src/ranking.php:108 src/ticker.php:196
+#: src/ranking.php:108 src/ticker.php:157
 msgid "day"
 msgstr ""
 
-#: src/ranking.php:116 src/ticker.php:204
+#: src/ranking.php:116 src/ticker.php:165
 msgid "night"
 msgstr ""
 
@@ -94,45 +94,29 @@ msgid ""
 "cryptocurrency"
 msgstr ""
 
-#: src/ticker.php:53
-msgid "Data is currently unavailable"
-msgstr ""
-
-#: src/ticker.php:66
-msgid "Rank"
-msgstr ""
-
-#: src/ticker.php:74
-msgid "ATH"
-msgstr ""
-
-#: src/ticker.php:78
-msgid "Volume 24h"
-msgstr ""
-
-#: src/ticker.php:82
-msgid "Market cap"
-msgstr ""
-
-#: src/ticker.php:161
+#: src/ticker.php:88
 msgid "Cryptocurrency:"
 msgstr ""
 
-#: src/ticker.php:209
-msgid "Widget version:"
+#: src/ticker.php:114
+msgid "Widget modules:"
 msgstr ""
 
-#: src/ticker.php:218
-msgid "standard"
+#: src/ticker.php:124
+msgid "Price"
 msgstr ""
 
-#: src/ticker.php:226
-msgid "extended"
+#: src/ticker.php:133
+msgid "Markets Metrics"
 msgstr ""
 
-#. #-#-#-#-#  coinpaprika.pot (Coinpaprika 1.1.1)  #-#-#-#-#
+#: src/ticker.php:142
+msgid "Price Chart"
+msgstr ""
+
+#. #-#-#-#-#  coinpaprika.pot (Coinpaprika 1.1.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  coinpaprika.pot (Coinpaprika 1.1.1)  #-#-#-#-#
+#. #-#-#-#-#  coinpaprika.pot (Coinpaprika 1.1.2)  #-#-#-#-#
 #. Author of the plugin/theme
 msgid "Coinpaprika"
 msgstr ""

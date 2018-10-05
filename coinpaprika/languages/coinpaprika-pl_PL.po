@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Coinpaprika 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/coinpaprika\n"
-"POT-Creation-Date: 2018-09-18 07:15:31+00:00\n"
-"PO-Revision-Date: 2018-09-18 09:43+0200\n"
+"POT-Creation-Date: 2018-10-05 11:07:55+00:00\n"
+"PO-Revision-Date: 2018-10-05 13:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -24,7 +24,7 @@ msgstr "Coins Ranking (od Coinpaprika)"
 msgid "Use this widget to display ranking for selected cryptocurrencies"
 msgstr "Widget wyświetla ranking wybranych kryptowalut"
 
-#: src/ranking.php:30 src/ticker.php:30
+#: src/ranking.php:30 src/ticker.php:34
 msgid "Configure widget settings"
 msgstr "Skonfiguruj widget"
 
@@ -52,7 +52,7 @@ msgstr "10 minut"
 msgid "30 minutes"
 msgstr "30 minut"
 
-#: src/ranking.php:66 src/ticker.php:155
+#: src/ranking.php:66 src/ticker.php:82
 msgid "Title:"
 msgstr "Tytuł:"
 
@@ -68,19 +68,19 @@ msgstr "ctrl/&#8984; + click aby zaznaczyć kilka"
 msgid "(max. 50 coins)"
 msgstr "(max. 50 kryptowalut)"
 
-#: src/ranking.php:86 src/ticker.php:174
+#: src/ranking.php:86 src/ticker.php:101
 msgid "Display in:"
 msgstr "Wyświetl w:"
 
-#: src/ranking.php:99 src/ticker.php:187
+#: src/ranking.php:99 src/ticker.php:148
 msgid "Widget style:"
 msgstr "Styl widgetu:"
 
-#: src/ranking.php:108 src/ticker.php:196
+#: src/ranking.php:108 src/ticker.php:157
 msgid "day"
 msgstr "dzienny"
 
-#: src/ranking.php:116 src/ticker.php:204
+#: src/ranking.php:116 src/ticker.php:165
 msgid "night"
 msgstr "nocny"
 
@@ -98,41 +98,25 @@ msgid ""
 "cryptocurrency"
 msgstr "Widget wyświetla najważniejsze metryki dla wybranej kryptowaluty"
 
-#: src/ticker.php:53
-msgid "Data is currently unavailable"
-msgstr "Dane są aktualnie niedostępne"
-
-#: src/ticker.php:66
-msgid "Rank"
-msgstr "Rank"
-
-#: src/ticker.php:74
-msgid "ATH"
-msgstr "ATH"
-
-#: src/ticker.php:78
-msgid "Volume 24h"
-msgstr "Wolumen 24h"
-
-#: src/ticker.php:82
-msgid "Market cap"
-msgstr "Kapitalizacja rynku"
-
-#: src/ticker.php:161
+#: src/ticker.php:88
 msgid "Cryptocurrency:"
 msgstr "Kryptowaluta:"
 
-#: src/ticker.php:209
-msgid "Widget version:"
-msgstr "Wersja widgetu:"
+#: src/ticker.php:114
+msgid "Widget modules:"
+msgstr "Widoczne elementy:"
 
-#: src/ticker.php:218
-msgid "standard"
-msgstr "standardowa"
+#: src/ticker.php:124
+msgid "Price"
+msgstr "Cena"
 
-#: src/ticker.php:226
-msgid "extended"
-msgstr "rozszerzona"
+#: src/ticker.php:133
+msgid "Markets Metrics"
+msgstr "Metryki Rynku"
+
+#: src/ticker.php:142
+msgid "Price Chart"
+msgstr "Wykres Ceny"
 
 #. Plugin Name of the plugin/theme
 #. Author of the plugin/theme
@@ -155,6 +139,27 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://coinpaprika.com/"
 msgstr "https://coinpaprika.com/"
+
+#~ msgid "Data is currently unavailable"
+#~ msgstr "Dane są aktualnie niedostępne"
+
+#~ msgid "Rank"
+#~ msgstr "Rank"
+
+#~ msgid "ATH"
+#~ msgstr "ATH"
+
+#~ msgid "Volume 24h"
+#~ msgstr "Wolumen 24h"
+
+#~ msgid "Widget version:"
+#~ msgstr "Wersja widgetu:"
+
+#~ msgid "standard"
+#~ msgstr "standardowa"
+
+#~ msgid "extended"
+#~ msgstr "rozszerzona"
 
 #~ msgid "Coinpaprika ranking"
 #~ msgstr "Coinpaprika ranking"

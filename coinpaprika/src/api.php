@@ -19,7 +19,7 @@ class Coinpaprika_API {
 	}
 
 	public function display_currencies() {
-		return array('usd' => 'USD', 'btc' => 'BTC', 'eth' => 'ETH');
+		return array('usd' => 'USD', 'pln' => 'PLN', 'btc' => 'BTC', 'eth' => 'ETH');
 	}
 
 	private function load($path, $ttl) {
